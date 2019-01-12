@@ -1,0 +1,93 @@
+let NoteNum = 0
+let NoteChar = ''
+let testMessages: string[] = []
+let Active_Chord: number[] = []
+let msg = ""
+input.onGesture(Gesture.Shake, function () {
+    msg = "M1"
+    processMessage2()
+})
+input.onButtonPressed(Button.A, function () {
+    createRandomMessage2()
+    processMessage2()
+})
+radio.onReceivedString(function (receivedString) {
+    led.toggle(0, 0)
+    msg = receivedString
+    processMessage2()
+})
+input.onButtonPressed(Button.B, function () {
+    createRandomMessage2()
+    radio.sendString("" + msg)
+})
+function createRandomMessage2() {
+    msg = testMessages[Math.randomRange(0, testMessages.length - 1)]
+}
+input.onButtonPressed(Button.AB, function () {
+    msg = "M."
+    processMessage2()
+})
+function processMessage2() {
+    if (msg.charAt(0) == "H") {
+        check_chord2()
+    } else {
+        if (msg == "M.") {
+            music.rest(5)
+        } else if (msg.charAt(0) == 'M') {
+            NoteChar = msg.charAt(1)
+            NoteNum = parseInt(NoteChar)
+            NoteNum = NoteNum - 1
+            NoteNum = NoteNum / 2
+            if (Active_Chord == CMaj) {
+                playNoteFromNoteNumberAndChord(NoteNum, CMaj)
+            } else if (Active_Chord == G7Maj) {
+                playNoteFromNoteNumberAndChord(NoteNum, G7Maj)
+            } else if (Active_Chord == FMaj) {
+                playNoteFromNoteNumberAndChord(NoteNum, FMaj)
+            } else {
+                music.rest(5)
+            }
+        } //else {
+        // getFrequencyForNoteName(msg.charCodeAt(1))
+        //}
+    }
+}
+function check_chord2() {
+    if (msg.charAt(1) == "C") {
+        Active_Chord = CMaj
+    } else if (msg.charAt(1) == "G") {
+        Active_Chord = G7Maj
+    } else if (msg.charAt(1) == "F") {
+        Active_Chord = FMaj
+    }
+}
+let noteFs: number[] = []
+let index = 0
+let CMaj: number[] = []
+let G7Maj: number[] = []
+let FMaj: number[] = []
+function playNoteFromNoteNumberAndChord(NoteNum: number, chordIx: number[]) {
+    let FsIx = chordIx[NoteNum]
+    music.ringTone(noteFs[FsIx])
+}
+CMaj = [2, 4, 6]
+G7Maj = [6, 1, 3, 5]
+FMaj = [5, 0, 1]
+Active_Chord = CMaj
+function getFrequencyForNoteName(noteName: '') {
+    index = noteName.charCodeAt(0) - 65
+    return noteFs[index]
+}
+testMessages = ["M1", "M3", "M5", "M7", "M.", "HC", "HG", "HF"]
+noteFs = [880, 988, 523, 587, 659, 698, 784]
+if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42)
+    basic.showNumber(42)
+} else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43)
+    basic.showNumber(43)
+} else {
+    radio.setGroup(41)
+    basic.showNumber(41)
+}
+basic.showIcon(IconNames.EigthNote)
