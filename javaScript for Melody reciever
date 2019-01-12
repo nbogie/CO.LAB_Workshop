@@ -4,7 +4,7 @@ let testMessages: string[] = []
 let Active_Chord: number[] = []
 let msg = ""
 input.onGesture(Gesture.Shake, function () {
-    msg = "M1"
+    msg = "M7"
     processMessage2()
 })
 input.onButtonPressed(Button.A, function () {
@@ -66,14 +66,18 @@ let index = 0
 let CMaj: number[] = []
 let G7Maj: number[] = []
 let FMaj: number[] = []
-function playNoteFromNoteNumberAndChord(NoteNum: number, chordIx: number[]) {
-    let FsIx = chordIx[NoteNum]
-    music.ringTone(noteFs[FsIx])
+function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
+    if (NoteNum > (chordIxs.length)-1){
+        music.rest(5)
+    }else{
+        let FsIx = chordIxs[NoteNum]
+        music.ringTone(noteFs[FsIx])
+    }
 }
 CMaj = [2, 4, 6]
 G7Maj = [6, 1, 3, 5]
 FMaj = [5, 0, 1]
-Active_Chord = CMaj
+Active_Chord = FMaj
 function getFrequencyForNoteName(noteName: '') {
     index = noteName.charCodeAt(0) - 65
     return noteFs[index]
@@ -91,3 +95,4 @@ if (input.buttonIsPressed(Button.A)) {
     basic.showNumber(41)
 }
 basic.showIcon(IconNames.EigthNote)
+
