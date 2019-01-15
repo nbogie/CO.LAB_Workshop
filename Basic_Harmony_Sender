@@ -1,0 +1,16 @@
+radio.setGroup(41)
+basic.showIcon(IconNames.Duck)
+basic.forever(function () {
+    if (input.acceleration(Dimension.X) > 300) {
+        radio.sendString("M1")
+    } else if (input.acceleration(Dimension.X) < -300) {
+        radio.sendString("M3")
+    } else if (input.acceleration(Dimension.Y) > 300) {
+        radio.sendString("M5")
+    } else if (input.acceleration(Dimension.Y) < -300) {
+        radio.sendString("M7")
+    } else if (input.acceleration(Dimension.X) < 300 && input.acceleration(Dimension.X) > -300 && (input.acceleration(Dimension.Y) < 300 && input.acceleration(Dimension.Y) > -300)) {
+        radio.sendString("M.")
+    }
+    basic.pause(100)
+})
