@@ -1,0 +1,24 @@
+radio.onReceivedString(function (receivedString) { 
+    led.toggle(0, 0)
+    processMessage()
+    msg = receivedString
+})
+function processMessage() {
+    if (msg.charAt(0) == "H") {
+        getFrequencyForNoteName(msg.charAt(1))
+    }
+}
+//defining variables
+let msg = ""
+let noteFs: number[] = []
+let index = 0
+//Getting frequency from note letter
+function getFrequencyForNoteName(noteName: string) {
+
+    index = noteName.charCodeAt(0) - 65
+
+    music.ringTone(noteFs[index])
+
+}
+// Frequency and Test array setups
+noteFs = [440, 494, 262, 294, 330, 349, 392]
