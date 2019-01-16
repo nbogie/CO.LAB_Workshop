@@ -1,19 +1,16 @@
+//Defining variable
 let NoteNum = 0
 let NoteChar = ''
 let testMessages: string[] = []
 let Active_Chord: number[] = []
 let msg = ""
+//Test Messages
 input.onGesture(Gesture.Shake, function () {
     msg = "M1"
     processMessage2()
 })
 input.onButtonPressed(Button.A, function () {
     createRandomMessage2()
-    processMessage2()
-})
-radio.onReceivedString(function (receivedString) {
-    led.toggle(0, 0)
-    msg = receivedString
     processMessage2()
 })
 input.onButtonPressed(Button.B, function () {
@@ -27,6 +24,14 @@ input.onButtonPressed(Button.AB, function () {
     msg = "M."
     processMessage2()
 })
+//When Recieve Radio Message
+radio.onReceivedString(function (receivedString) {
+    //Tells you when it is recieving messages
+    led.toggle(0, 0)
+    msg = receivedString
+    processMessage2()
+})
+//Processes the Message and Plays a note
 function processMessage2() {
     if (msg.charAt(0) == "H") {
         check_chord2()
@@ -47,11 +52,14 @@ function processMessage2() {
             } else {
                 music.rest(5)
             }
-        } //else {
+        } 
+    //if you want to add a pro mode then uncomment 
+        //else if(msg.charAt(0) == "P"){
         // getFrequencyForNoteName(msg.charCodeAt(1))
         //}
     }
 }
+//Checks what chord is being set by the Harmony Glove
 function check_chord2() {
     if (msg.charAt(1) == "C") {
         Active_Chord = CMaj
@@ -67,11 +75,13 @@ function check_chord2() {
         led.plot(4, 2)
     }
 }
+//Defining Arrays
 let noteFs: number[] = []
 let index = 0
 let CMaj: number[] = []
 let G7Maj: number[] = []
 let FMaj: number[] = []
+//Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
     if (NoteNum > (chordIxs.length) - 1) {
         music.rest(5)
@@ -80,16 +90,20 @@ function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
         music.ringTone(noteFs[FsIx])
     }
 }
+//setting up chord arrays
 CMaj = [2, 4, 6]
 G7Maj = [6, 1, 3, 5]
 FMaj = [5, 0, 1]
 Active_Chord = CMaj
+//Pro Mode - Plays note from the Note Name
 function getFrequencyForNoteName(noteName: '') {
     index = noteName.charCodeAt(0) - 65
     return noteFs[index]
 }
+//Frequency and Test array setups
 testMessages = ["M1", "M3", "M5", "M7", "M.", "HC", "HG", "HF"]
 noteFs = [880, 988, 523, 587, 659, 698, 784]
+//Radio Setup
 if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(42)
     basic.showNumber(42)
@@ -100,4 +114,5 @@ if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(41)
     basic.showNumber(41)
 }
+//Check to see if there is power
 basic.showIcon(IconNames.EigthNote)
