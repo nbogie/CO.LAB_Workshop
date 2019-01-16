@@ -1,0 +1,85 @@
+let FMaj: number[] = []
+let Active_Chord: number[] = []
+let msg = ""
+// When Recieve Radio Message
+radio.onReceivedString(function (receivedString) {
+    // Tells you when it is recieving messages
+    led.toggle(0, 0)
+    msg = receivedString
+    processMessage22()
+})
+// Processes the Message and Plays a note
+function processMessage22() {
+    if (msg.charAt(0) == "H") {
+        check_chord22()
+    } else {
+        if (msg == "R.") {
+            music.rest(5)
+        } else if (msg.charAt(0) == "R") {
+            if (msg.charAt(1) == "P") {
+                ProModeNote = msg.charAt(2)
+                getFrequencyForNoteName(ProModeNote)
+            }
+            if (Active_Chord == CMaj) {
+                playNoteFromNoteNumberAndChord(0, CMaj)
+            } else if (Active_Chord == G7Maj) {
+                playNoteFromNoteNumberAndChord(0, G7Maj)
+            } else if (Active_Chord == FMaj) {
+                playNoteFromNoteNumberAndChord(0, G7Maj)
+            } else {
+                music.rest(5)
+            }
+        }
+    }
+}
+// Checks what chord is being set by the Harmony Glove
+function check_chord22() {
+    if (msg.charAt(1) == "C") {
+        Active_Chord = CMaj
+        basic.clearScreen()
+        led.plot(4, 0)
+    } else if (msg.charAt(1) == "G") {
+        Active_Chord = G7Maj
+        basic.clearScreen()
+        led.plot(4, 1)
+    } else if (msg.charAt(1) == "F") {
+        Active_Chord = FMaj
+        basic.clearScreen()
+        led.plot(4, 2)
+    }
+}
+let noteFs: number[] = []
+let index = 0
+let CMaj: number[] = []
+let G7Maj: number[] = []
+let ProModeNote = ""
+// Playing note from Message sent and chord set
+function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
+    let FsIx = chordIxs[NoteNum]
+    music.ringTone(noteFs[FsIx])
+}
+// setting up chord arrays
+CMaj = [2]
+G7Maj = [6]
+FMaj = [5]
+Active_Chord = CMaj
+// Pro Mode - Plays note from the Note Name
+function getFrequencyForNoteName(noteName: string) {
+    index = noteName.charCodeAt(0) - 65
+    return noteFs[index]
+}
+// Frequency and Test array setups
+noteFs = [220, 247, 131, 147, 165, 175, 196]
+// Radio Setup
+if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42)
+    basic.showNumber(42)
+} else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43)
+    basic.showNumber(43)
+} else {
+    radio.setGroup(41)
+    basic.showNumber(41)
+}
+// Check to see if there is power
+basic.showIcon(IconNames.EigthNote)
