@@ -22,3 +22,14 @@ input.onButtonPressed(Button.AB, function () {
 radio.setGroup(41)
 // Check of Power
 basic.showIcon(IconNames.Heart)
+//Radio Setup
+if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42)
+    basic.showNumber(42)
+} else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43)
+    basic.showNumber(43)
+} else {
+    radio.setGroup(41)
+    basic.showNumber(41)
+}
