@@ -1,0 +1,18 @@
+radio.setGroup(41)
+// Check of Power
+basic.showIcon(IconNames.Heart)
+basic.forever(function () {
+    //If tilted right
+    if (input.acceleration(Dimension.X) > 300) {
+        radio.sendString("R")
+        //Tells you Message has been sent
+        basic.showLeds(`
+            # # # # #
+            # # # # #
+            # # # # #
+            # # # # #
+            # # # # #
+            `)
+        basic.clearScreen()
+    }
+})
