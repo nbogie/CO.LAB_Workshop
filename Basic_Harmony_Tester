@@ -22,4 +22,3 @@ input.onButtonPressed(Button.AB, function () {
 radio.setGroup(41)
 // Check of Power
 basic.showIcon(IconNames.Heart)
-radio.setGroup(41)
