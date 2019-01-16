@@ -1,0 +1,25 @@
+// Button A makes chord = CMaj
+input.onButtonPressed(Button.A, function () {
+    radio.sendString("HC")
+    basic.clearScreen()
+    // Tells you chord CMaj is Active
+    led.toggle(4, 0)
+})
+// Button B makes chord = G7Maj
+input.onButtonPressed(Button.B, function () {
+    radio.sendString("HG")
+    basic.clearScreen()
+    // Tells you chord G7Maj is Active
+    led.toggle(4, 1)
+})
+// Button A+B makes chord = FMaj
+input.onButtonPressed(Button.AB, function () {
+    radio.sendString("HF")
+    basic.clearScreen()
+    // Tells you chord FMaj is Active
+    led.toggle(4, 2)
+})
+radio.setGroup(41)
+// Check of Power
+basic.showIcon(IconNames.Heart)
+radio.setGroup(41)
