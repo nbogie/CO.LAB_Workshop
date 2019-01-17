@@ -18,9 +18,8 @@ function processMessage22() {
         } else if (msg.charAt(0) == "R") {
             if (msg.charAt(1) == "P") {
                 ProModeNote = msg.charAt(2)
-                getFrequencyForNoteName(ProModeNote)
-            }
-            if (Active_Chord == CMaj) {
+                music.ringTone(getFrequencyForNoteName(ProModeNote))
+            } else if (Active_Chord == CMaj) {
                 playNoteFromNoteNumberAndChord(0, CMaj)
             } else if (Active_Chord == G7Maj) {
                 playNoteFromNoteNumberAndChord(0, G7Maj)
@@ -48,11 +47,11 @@ function check_chord22() {
         led.plot(4, 2)
     }
 }
-let noteFs: number[] = []
-let index = 0
-let CMaj: number[] = []
-let G7Maj: number[] = []
 let ProModeNote = ""
+let G7Maj: number[] = []
+let CMaj: number[] = []
+let index = 0
+let noteFs: number[] = []
 // Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
     let FsIx = chordIxs[NoteNum]
@@ -81,7 +80,7 @@ if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(41)
     basic.showNumber(41)
 }
-//Radio Setup
+// Radio Setup
 if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(42)
     basic.showNumber(42)
@@ -93,4 +92,10 @@ if (input.buttonIsPressed(Button.A)) {
     basic.showNumber(41)
 }
 // Check to see if there is power
-basic.showIcon(IconNames.EigthNote)
+basic.showLeds(`
+    # # . . .
+    # . . . .
+    # . # # .
+    . . # . .
+    . . # . .
+    `)
