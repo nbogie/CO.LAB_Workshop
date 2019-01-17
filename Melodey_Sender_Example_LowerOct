@@ -1,0 +1,32 @@
+// Radio Setup
+if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42)
+    basic.showNumber(42)
+} else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43)
+    basic.showNumber(43)
+} else {
+    radio.setGroup(41)
+    basic.showNumber(41)
+}
+basic.showLeds(`
+    . # . . .
+    . # . . #
+    . # . # .
+    # # . . #
+    # # . # .
+    `)
+basic.forever(function () {
+    if (input.acceleration(Dimension.X) > 300) {
+        radio.sendString("m1")
+    } else if (input.acceleration(Dimension.X) < -300) {
+        radio.sendString("m3")
+    } else if (input.acceleration(Dimension.Y) > 300) {
+        radio.sendString("m5")
+    } else if (input.acceleration(Dimension.Y) < -300) {
+        radio.sendString("m7")
+    } else if (input.acceleration(Dimension.X) < 300 && input.acceleration(Dimension.X) > -300 && (input.acceleration(Dimension.Y) < 300 && input.acceleration(Dimension.Y) > -300)) {
+        radio.sendString("m.")
+    }
+    basic.pause(100)
+})
