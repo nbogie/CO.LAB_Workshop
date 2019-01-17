@@ -1,28 +1,30 @@
-radio.onReceivedString(function (receivedString) { 
+// When Recieve Radio Message
+radio.onReceivedString(function (receivedString) {
+    // Tells you when it is recieving messages
     led.toggle(0, 0)
-    processMessage()
     msg = receivedString
+    processMessage222()
 })
-function processMessage() {
+// Processes the Message and Plays a note
+function processMessage222() {
     if (msg.charAt(0) == "H") {
-        getFrequencyForNoteName(msg.charAt(1))
+        let FToBePlayed = getFrequencyForNoteName(msg.charAt(1))
+music.ringTone(FToBePlayed)
+    } else if (msg == "H.") {
+        music.rest(5)
     }
 }
-//defining variables
-let msg = ""
 let noteFs: number[] = []
 let index = 0
-//Getting frequency from note letter
+let msg = ""
+// Pro Mode - Plays note from the Note Name
 function getFrequencyForNoteName(noteName: string) {
-
     index = noteName.charCodeAt(0) - 65
-
-    music.ringTone(noteFs[index])
-
+    return noteFs[index]
 }
 // Frequency and Test array setups
-noteFs = [440, 494, 262, 294, 330, 349, 392]
-//Radio Setup
+noteFs = [220, 247, 131, 147, 165, 175, 196]
+// Radio Setup
 if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(42)
     basic.showNumber(42)
@@ -33,3 +35,21 @@ if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(41)
     basic.showNumber(41)
 }
+// Radio Setup
+if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42)
+    basic.showNumber(42)
+} else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43)
+    basic.showNumber(43)
+} else {
+    radio.setGroup(41)
+    basic.showNumber(41)
+}
+basic.showLeds(`
+    . . . # #
+    # . . # .
+    # . . # .
+    # # # . .
+    # . # . .
+    `)
