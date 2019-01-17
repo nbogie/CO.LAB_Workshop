@@ -19,9 +19,7 @@ input.onButtonPressed(Button.AB, function () {
     // Tells you chord FMaj is Active
     led.toggle(4, 2)
 })
-// Check of Power
-basic.showIcon(IconNames.Heart)
-//Radio Setup
+// Radio Setup
 if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(42)
     basic.showNumber(42)
@@ -32,3 +30,10 @@ if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(41)
     basic.showNumber(41)
 }
+basic.showLeds(`
+    . . . . .
+    # . . . #
+    # . . # .
+    # # # . #
+    # . # # .
+    `)
