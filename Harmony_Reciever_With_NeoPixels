@@ -1,0 +1,77 @@
+let NeoPixelColors2: number[] = []
+// When Recieve Radio Message
+radio.onReceivedString(function (receivedString) {
+    // Tells you when it is recieving messages
+    led.toggle(0, 0)
+    msg = receivedString
+    processMessage22222()
+})
+input.onButtonPressed(Button.A, function () {
+    msg = "HC"
+    processMessage22222()
+})
+input.onButtonPressed(Button.B, function () {
+    msg = "HG"
+    processMessage22222()
+})
+input.onButtonPressed(Button.AB, function () {
+    msg = "HF"
+    processMessage22222()
+})
+// Processes the Message and Plays a note
+function processMessage22222() {
+    if (msg.charAt(0) == "H") {
+        let FToBePlayed = getFrequencyForNoteName(msg.charAt(1))
+        NeoPixels(index - 2)
+        music.ringTone(FToBePlayed)
+    } else if (msg == "H.") {
+        music.rest(5)
+    }
+}
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.colors(NeoPixelColors.Blue), neopixel.colors(NeoPixelColors.Orange), neopixel.colors(NeoPixelColors.Purple)]
+let msg = ""
+let index = 0
+let noteFs: number[] = []
+let strip: neopixel.Strip = null
+strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
+strip.showColor(neopixel.colors(NeoPixelColors.Black))
+function NeoPixels(index: number) {
+    strip.showColor(neopixel.colors(NeoPixelColors2[index]))
+}
+// Pro Mode - Plays note from the Note Name
+function getFrequencyForNoteName(noteName: string) {
+    index = noteName.charCodeAt(0) - 65
+    return noteFs[index]
+    return index
+}
+// Frequency and Test array setups
+noteFs = [220, 247, 131, 147, 165, 175, 196]
+// Radio Setup
+if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42)
+    basic.showNumber(42)
+} else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43)
+    basic.showNumber(43)
+} else {
+    radio.setGroup(41)
+    basic.showNumber(41)
+}
+// Radio Setup
+if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42)
+    basic.showNumber(42)
+} else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43)
+    basic.showNumber(43)
+} else {
+    radio.setGroup(41)
+    basic.showNumber(41)
+}
+basic.showLeds(`
+    . . . # #
+    # . . # .
+    # . . # .
+    # # # . .
+    # . # . .
+    `)
