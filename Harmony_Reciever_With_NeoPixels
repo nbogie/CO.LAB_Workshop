@@ -28,7 +28,7 @@ function processMessage22222() {
         music.rest(5)
     }
 }
-NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.colors(NeoPixelColors.Blue), neopixel.colors(NeoPixelColors.Orange), neopixel.colors(NeoPixelColors.Purple)]
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
 let msg = ""
 let index = 0
 let noteFs: number[] = []
