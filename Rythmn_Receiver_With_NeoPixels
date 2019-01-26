@@ -1,15 +1,16 @@
-let NoteLength = []
+let NoteLength: BeatFraction[] = []
 let FMaj: number[] = []
 let Active_Chord: number[] = []
 let msg = ""
 let testMessages: string[] = []
 let testBeatMsgs: string[] = []
+let NoteLengthPos = 0
 input.onButtonPressed(Button.A, function () {
     msg = 'R'
     processMessage22()
 })
 input.onButtonPressed(Button.AB, function () {
-    msg = testBeatMsgs[Math.random(0, 3)]
+    msg = testBeatMsgs[Math.randomRange(0, 3)]
     processMessage22()
 })
 testMessages = ['HC', 'HG', 'HF']
@@ -87,7 +88,8 @@ let noteFs: number[] = []
 // Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
     let FsIx = chordIxs[NoteNum]
-    music.playTone(noteFs[FsIx], (NoteLength[msg.charAt(1) - 1])
+    NoteLengthPos = parseInt(msg.charAt(1))
+    music.playTone(noteFs[FsIx], (NoteLength[NoteLengthPos - 1]))
 }
 // setting up chord arrays
 CMaj = [2, 4, 6]
