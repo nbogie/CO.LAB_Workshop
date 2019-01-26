@@ -1,39 +1,40 @@
-let NeoPixelColors2: number[] = []
 // When Recieve Radio Message
 radio.onReceivedString(function (receivedString) {
     // Tells you when it is recieving messages
     led.toggle(0, 0)
     msg = receivedString
-    processMessage22222()
+    processMessage222222()
 })
 input.onButtonPressed(Button.A, function () {
     msg = "HC"
-    processMessage22222()
+    processMessage222222()
 })
 input.onButtonPressed(Button.B, function () {
     msg = "HG"
-    processMessage22222()
+    processMessage222222()
 })
 input.onButtonPressed(Button.AB, function () {
     msg = "HF"
-    processMessage22222()
+    processMessage222222()
 })
 // Processes the Message and Plays a note
-function processMessage22222() {
+function processMessage222222() {
     if (msg.charAt(0) == "H") {
         let FToBePlayed = getFrequencyForNoteName(msg.charAt(1))
-        NeoPixels(index - 2)
-        music.ringTone(FToBePlayed)
+NeoPixels(index - 2)
+music.ringTone(FToBePlayed)
     } else if (msg == "H.") {
         music.rest(5)
     }
 }
-NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
-let msg = ""
-let index = 0
 let noteFs: number[] = []
+let index = 0
+let msg = ""
 let strip: neopixel.Strip = null
 strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
+let NeoPixelColors2: number[] = []
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
+strip.setBrightness(255)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 function NeoPixels(index: number) {
     strip.showColor(neopixel.colors(NeoPixelColors2[index]))
