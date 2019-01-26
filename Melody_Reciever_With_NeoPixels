@@ -97,9 +97,11 @@ function getFrequencyForNoteName(noteName: '') {
     index = noteName.charCodeAt(0) - 65
     return noteFs[index]
 }
-let NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.colors(NeoPixelColors.Blue), neopixel.colors(NeoPixelColors.Orange), neopixel.colors(NeoPixelColors.Purple)]
 let strip: neopixel.Strip = null
 strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
+let NeoPixelColors2: number[] = []
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
+strip.setBrightness(255)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 function NeoPixels(index: number) {
     strip.showColor(neopixel.colors(NeoPixelColors2[index]))
@@ -126,3 +128,4 @@ basic.showLeds(`
     # # . # .
     . . . # .
     `) 
+ 
