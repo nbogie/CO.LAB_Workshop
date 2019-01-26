@@ -47,12 +47,14 @@ function processMessage2() {
         check_chord2()
     } else {
         if (msg == "m.") {
+            neopixel.colors(NeoPixelColors.Black)
             music.rest(5)
         } else if (msg.charAt(0) == "m") {
             NoteChar = msg.charAt(1)
             NoteNum = parseInt(NoteChar)
             NoteNum = NoteNum - 1
             NoteNum = NoteNum / 2
+            NeoPixels(NoteNum)
             if (Active_Chord == CMaj) {
                 playNoteFromNoteNumberAndChord(NoteNum, CMaj)
             } else if (Active_Chord == G7Maj) {
@@ -75,6 +77,15 @@ let index = 0
 let CMaj: number[] = []
 let G7Maj: number[] = []
 let FMaj: number[] = []
+let strip: neopixel.Strip = null
+strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
+let NeoPixelColors2: number[] = []
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
+strip.setBrightness(255)
+strip.showColor(neopixel.colors(NeoPixelColors.Black))
+function NeoPixels(index: number) {
+    strip.showColor(neopixel.colors(NeoPixelColors2[index]))
+}
 // Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
     if (NoteNum > (chordIxs.length) - 1) {
@@ -93,6 +104,7 @@ Active_Chord = CMaj
 function getFrequencyForNoteName(noteName: '') {
     index = noteName.charCodeAt(0) - 65
     return noteFs[index]
+    return index
 }
 // Frequency and Test array setups
 testMessages = ["m1", "m3", "m5", "m7", "m.", "HC", "HG", "HF"]
@@ -114,4 +126,4 @@ basic.showLeds(`
     . # . # #
     # # . # .
     # # . # .
-    `)
+    `) 
