@@ -107,7 +107,7 @@ function NeoPixels(index: number) {
 // Frequency and Test array setups
 testMessages = ["M1", "M3", "M5", "M7", "M."]
 testMessages1 = ["M1", "M3", "M5", "M7", "M.", "HC", "HG", "HF"]
-noteFs = [880, 988, 523, 587, 659, 698, 784]
+noteFs = [440, 494, 262, 294, 330, 349, 392]
 // Radio Setup
 if (input.buttonIsPressed(Button.A)) {
     radio.setGroup(42)
