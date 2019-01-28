@@ -1,44 +1,29 @@
-let NoteLength: BeatFraction[] = []
-let FMaj: number[] = []
-let Active_Chord: number[] = []
-let msg = ""
 let testMessages: string[] = []
 let testBeatMsgs: string[] = []
-let NoteLengthPos = 0
+let Active_Chord: number[] = []
 input.onButtonPressed(Button.A, function () {
-    msg = 'R'
-    processMessage22()
+    msg = "R1"
+    processMessage222()
 })
 input.onButtonPressed(Button.AB, function () {
     msg = testBeatMsgs[Math.randomRange(0, 3)]
-    processMessage22()
+    processMessage222()
 })
-testMessages = ['HC', 'HG', 'HF']
-testBeatMsgs = ['R1', 'R2', 'R3', 'R4']
 input.onButtonPressed(Button.B, function () {
     msg = testMessages[Math.randomRange(0, 2)]
-    processMessage22()
+    processMessage222()
 })
 // When Recieve Radio Message
 radio.onReceivedString(function (receivedString) {
     // Tells you when it is recieving messages
     led.toggle(0, 0)
     msg = receivedString
-    processMessage22()
+    processMessage222()
 })
-let strip: neopixel.Strip = null
-strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
-let NeoPixelColors2: number[] = []
-NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
-strip.setBrightness(255)
-strip.showColor(neopixel.colors(NeoPixelColors.Black))
-function NeoPixels(index: number) {
-    strip.showColor(neopixel.colors(NeoPixelColors2[index]))
-}
 // Processes the Message and Plays a note
-function processMessage22() {
+function processMessage222() {
     if (msg.charAt(0) == "H") {
-        check_chord22()
+        check_chord222()
     } else {
         if (msg == "R.") {
             music.rest(5)
@@ -50,13 +35,10 @@ function processMessage22() {
                 music.ringTone(getFrequencyForNoteName(ProModeNote))
             } else if (Active_Chord == CMaj) {
                 playNoteFromNoteNumberAndChord(2, CMaj)
-                NeoPixels(0)
             } else if (Active_Chord == G7Maj) {
                 playNoteFromNoteNumberAndChord(2, G7Maj)
-                NeoPixels(2)
             } else if (Active_Chord == FMaj) {
                 playNoteFromNoteNumberAndChord(2, FMaj)
-                NeoPixels(1)
             } else {
                 music.rest(5)
                 NeoPixels(4)
@@ -65,7 +47,7 @@ function processMessage22() {
     }
 }
 // Checks what chord is being set by the Harmony Glove
-function check_chord22() {
+function check_chord222() {
     if (msg.charAt(1) == "C") {
         Active_Chord = CMaj
         basic.clearScreen()
@@ -80,16 +62,34 @@ function check_chord22() {
         led.plot(4, 2)
     }
 }
-let ProModeNote = ""
-let G7Maj: number[] = []
-let CMaj: number[] = []
-let index = 0
 let noteFs: number[] = []
+let index = 0
+let CMaj: number[] = []
+let G7Maj: number[] = []
+let ProModeNote = ""
+let NeoPixelColors2: number[] = []
+let strip: neopixel.Strip = null
+let NoteLengthPos = 0
+let msg = ""
+let FMaj: number[] = []
+let NoteLength: BeatFraction[] = []
+testMessages = ["HC", "HG", "HF"]
+testBeatMsgs = ["R1", "R2", "R3", "R4"]
+strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
+strip.setBrightness(255)
+strip.showColor(neopixel.colors(NeoPixelColors.Red))
+function NeoPixels(index: number) {
+    strip.showColor(neopixel.colors(NeoPixelColors2[index]))
+}
 // Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
     let FsIx = chordIxs[NoteNum]
     NoteLengthPos = parseInt(msg.charAt(1))
     music.playTone(noteFs[FsIx], (NoteLength[NoteLengthPos - 1]))
+    strip.showColor(neopixel.colors(NeoPixelColors.Red))
+    basic.pause(25)
+    strip.showColor(neopixel.colors(NeoPixelColors.Black))
 }
 // setting up chord arrays
 CMaj = [2, 4, 6]
