@@ -20,16 +20,13 @@ if (input.buttonIsPressed(Button.A)) {
 basic.forever(function () {
     // If tilted right
     if (input.acceleration(Dimension.X) > 300) {
-        radio.sendString("R")
-        // Tells you Message has been sent
-        basic.showLeds(`
-            # # # # #
-            # # # # #
-            # # # # #
-            # # # # #
-            # # # # #
-            `, 30)
-        basic.clearScreen()
+        radio.sendString("R4")
+    } else if (input.acceleration(Dimension.X) < -300) {
+        radio.sendString("R2")
+    } else if (input.acceleration(Dimension.Y) > 300) {
+        radio.sendString("R1")
+    } else if (input.acceleration(Dimension.Y) < -300) {
+        radio.sendString("R3")
     } else if (input.acceleration(Dimension.X) > -300 && input.acceleration(Dimension.X) < 300 && (input.acceleration(Dimension.Y) > -300 && input.acceleration(Dimension.Y) < 300)) {
         radio.sendString("R.")
     }
