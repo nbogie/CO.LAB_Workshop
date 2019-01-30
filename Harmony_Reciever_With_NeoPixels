@@ -33,7 +33,7 @@ let msg = ""
 let strip: neopixel.Strip = null
 strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
 let NeoPixelColors2: number[] = []
-NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(155, 155, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
 strip.setBrightness(255)
 strip.showColor(neopixel.colors(NeoPixelColors.Black))
 function NeoPixels(index: number) {
