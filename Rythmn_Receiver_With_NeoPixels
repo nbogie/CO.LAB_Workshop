@@ -76,7 +76,7 @@ let NoteLength: BeatFraction[] = []
 testMessages = ["HC", "HG", "HF"]
 testBeatMsgs = ["R1", "R2", "R3", "R4"]
 strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB)
-NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(255, 255, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
+NeoPixelColors2 = [neopixel.colors(NeoPixelColors.Red), neopixel.colors(NeoPixelColors.Green), neopixel.rgb(155, 155, 255), neopixel.colors(NeoPixelColors.Yellow), neopixel.colors(NeoPixelColors.Purple)]
 strip.setBrightness(255)
 strip.showColor(neopixel.colors(NeoPixelColors.Red))
 function NeoPixels(index: number) {
