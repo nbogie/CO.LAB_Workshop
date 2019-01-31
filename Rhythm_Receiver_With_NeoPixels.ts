@@ -2,18 +2,27 @@ let testMessages: string[] = []
 let testBeatMsgs: string[] = []
 let activeChord: number[] = []
 let lastMsg = ''
+
+basic.forever(function () {
+    playNoteFromNoteNumberAndChord(2, activeChord)
+    basic.pause(NoteLength[noteLengthPos - 1])
+})
+
 input.onButtonPressed(Button.A, function () {
     msg = "R1"
     processMessage()
 })
+
 input.onButtonPressed(Button.AB, function () {
     msg = testBeatMsgs[Math.randomRange(0, 3)]
     processMessage()
 })
+
 input.onButtonPressed(Button.B, function () {
     msg = testMessages[Math.randomRange(0, 2)]
     processMessage()
 })
+
 // When Recieve Radio Message
 radio.onReceivedString(function (receivedString) {
     // Tells you when it is recieving messages
@@ -21,6 +30,7 @@ radio.onReceivedString(function (receivedString) {
     msg = receivedString
     processMessage()
 })
+
 // Processes the Message and Plays a note
 function processMessage() {
     if (msg.charAt(0) == "H") {
@@ -51,6 +61,7 @@ function processMessage() {
         lastMsg = msg
     }
 }
+
 // Checks what chord is being set by the Harmony Glove
 function updateChord() {
     if (msg.charAt(1) == "C") {
@@ -68,16 +79,6 @@ function updateChord() {
     }
 }
 
-
-function neoPixelsShowColour(index: number) {
-    strip.showColor(neopixel.colors(myColours[index]))
-}
-
-basic.forever(function () {
-    playNoteFromNoteNumberAndChord(2, activeChord)
-    basic.pause(NoteLength[noteLengthPos - 1])
-})
-
 // Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
     let freqIx = chordIxs[NoteNum]
@@ -87,12 +88,18 @@ function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
     music.rest(50)
     strip.showColor(neopixel.colors(NeoPixelColors.Black))
 }
+
 // Pro Mode - Plays note from the Note Name
 function getFrequencyForNoteName(noteName: string) {
     index = noteName.charCodeAt(0) - 65
     return noteFreqs[index]
     return index
 }
+
+function neoPixelsShowColour(index: number) {
+    strip.showColor(neopixel.colors(myColours[index]))
+}
+
 let noteFreqs: number[] = []
 let index = 0
 let CMaj: number[] = []
