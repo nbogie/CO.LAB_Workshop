@@ -1,18 +1,18 @@
-let noteFreqs: number[] = [];
-let index = 0;
-let CMaj: number[] = [];
-let G7Maj: number[] = [];
-let proModeNote = "";
-let myColours: number[] = [];
-let strip: neopixel.Strip = null;
-let noteLengthPos = 0;
-let msg = "";
-let FMaj: number[] = [];
-let NoteLength: number[] = [];
-let testMessages: string[] = [];
-let testBeatMsgs: string[] = [];
 let activeChord: number[] = [];
+let CMaj: number[] = [];
+let FMaj: number[] = [];
+let G7Maj: number[] = [];
+let index = 0;
 let lastMsg = "";
+let msg = "";
+let myColours: number[] = [];
+let noteFreqs: number[] = [];
+let NoteLength: number[] = [];
+let noteLengthPos = 0;
+let proModeNote = "";
+let strip: neopixel.Strip = null;
+let testBeatMsgs: string[] = [];
+let testMessages: string[] = [];
 
 basic.forever(function() {
   playNoteFromNoteNumberAndChord(2, activeChord);
