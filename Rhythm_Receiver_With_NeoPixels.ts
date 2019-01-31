@@ -58,12 +58,8 @@ function processMessage() {
           let index = getIndexForNoteName(proModeNote);
           neoPixelsShowColour(index);
           music.ringTone(freq);
-        } else if (activeChord == CMaj) {
-          playNoteFromNoteNumberAndChord(2, CMaj);
-        } else if (activeChord == G7Maj) {
-          playNoteFromNoteNumberAndChord(2, G7Maj);
-        } else if (activeChord == FMaj) {
-          playNoteFromNoteNumberAndChord(2, FMaj);
+        } else if ([CMaj, FMaj, G7Maj].includes(activeChord)) {
+          playNoteFromNoteNumberAndChord(2, activeChord);
         } else {
           music.rest(5);
           neoPixelsShowColour(4);
