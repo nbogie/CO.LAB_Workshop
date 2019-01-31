@@ -134,17 +134,20 @@ activeChord = CMaj;
 // Frequency and Test array setups
 noteFreqs = [220, 247, 131, 147, 165, 175, 196];
 
-// Radio Setup
-if (input.buttonIsPressed(Button.A)) {
-  radio.setGroup(42);
-  basic.showNumber(42);
-} else if (input.buttonIsPressed(Button.B)) {
-  radio.setGroup(43);
-  basic.showNumber(43);
-} else {
-  radio.setGroup(41);
-  basic.showNumber(41);
+function setUpRadioGroup() {
+  // Radio Setup
+  if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42);
+    basic.showNumber(42);
+  } else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43);
+    basic.showNumber(43);
+  } else {
+    radio.setGroup(41);
+    basic.showNumber(41);
+  }
 }
+
 // Check to see if there is power
 basic.showLeds(`
     # # . . .
