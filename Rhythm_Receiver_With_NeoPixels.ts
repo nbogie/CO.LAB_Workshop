@@ -2,7 +2,6 @@ let activeChord: number[] = [];
 let CMaj: number[] = [];
 let FMaj: number[] = [];
 let G7Maj: number[] = [];
-let index = 0;
 let lastMsg = "";
 let msg = "";
 let myColours: number[] = [];
@@ -55,8 +54,10 @@ function processMessage() {
       } else if (msg.charAt(0) == "R") {
         if (msg.charAt(1) == "P") {
           proModeNote = msg.charAt(2);
+          let freq = getFrequencyForNoteName(proModeNote);
+          let index = getIndexForNoteName(proModeNote);
           neoPixelsShowColour(index);
-          music.ringTone(getFrequencyForNoteName(proModeNote));
+          music.ringTone(freq);
         } else if (activeChord == CMaj) {
           playNoteFromNoteNumberAndChord(2, CMaj);
         } else if (activeChord == G7Maj) {
@@ -100,11 +101,14 @@ function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
   strip.showColor(neopixel.colors(NeoPixelColors.Black));
 }
 
+function getIndexForNoteName(noteName: string){
+    //TODO: protect against bad inputs
+    return noteName.charCodeAt(0) - 65;
+}
+
 // Pro Mode - Plays note from the Note Name
-function getFrequencyForNoteName(noteName: string) {
-  index = noteName.charCodeAt(0) - 65;
-  return noteFreqs[index];
-  return index;
+function getFrequencyForNoteName(noteName: string) {  
+  return noteFreqs[getIndexForNoteName(noteName)];
 }
 
 function neoPixelsShowColour(index: number) {
