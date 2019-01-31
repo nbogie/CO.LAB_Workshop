@@ -1,3 +1,14 @@
+let noteFreqs: number[] = [];
+let index = 0;
+let CMaj: number[] = [];
+let G7Maj: number[] = [];
+let proModeNote = "";
+let myColours: number[] = [];
+let strip: neopixel.Strip = null;
+let noteLengthPos = 0;
+let msg = "";
+let FMaj: number[] = [];
+let NoteLength: number[] = [];
 let testMessages: string[] = [];
 let testBeatMsgs: string[] = [];
 let activeChord: number[] = [];
@@ -100,17 +111,6 @@ function neoPixelsShowColour(index: number) {
   strip.showColor(neopixel.colors(myColours[index]));
 }
 
-let noteFreqs: number[] = [];
-let index = 0;
-let CMaj: number[] = [];
-let G7Maj: number[] = [];
-let proModeNote = "";
-let myColours: number[] = [];
-let strip: neopixel.Strip = null;
-let noteLengthPos = 0;
-let msg = "";
-let FMaj: number[] = [];
-let NoteLength: number[] = [];
 testMessages = ["HC", "HG", "HF"];
 testBeatMsgs = ["R1", "R2", "R3", "R4"];
 strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB);
