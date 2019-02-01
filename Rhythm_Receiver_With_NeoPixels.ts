@@ -3,7 +3,6 @@ let CMaj: number[] = [];
 let FMaj: number[] = [];
 let G7Maj: number[] = [];
 let prevMsg = "";
-let currentMsg = "";
 let myColours: number[] = [];
 let noteFreqs: number[] = [];
 let noteLengthPos = 0;
@@ -20,30 +19,28 @@ basic.forever(function() {
 });
 
 input.onButtonPressed(Button.A, function() {
-  currentMsg = "R1";
-  processMessage();
+  processMessage("R1");
 });
 
 input.onButtonPressed(Button.AB, function() {
-  currentMsg = testBeatMsgs[Math.randomRange(0, 3)];
-  processMessage();
+  let testMsg = testBeatMsgs[Math.randomRange(0, 3)];
+  processMessage(testMsg);
 });
 
 input.onButtonPressed(Button.B, function() {
-  currentMsg = testMessages[Math.randomRange(0, 2)];
-  processMessage();
+  let testMsg = testMessages[Math.randomRange(0, 2)];
+  processMessage(testMsg);
 });
 
 // When Recieve Radio Message
 radio.onReceivedString(function(receivedString) {
   // Tells you when it is recieving messages
   led.toggle(0, 0);
-  currentMsg = receivedString;
-  processMessage();
+  processMessage(receivedString);
 });
 
 // Processes the Message and Plays a note
-function processMessage() {
+function processMessage(currentMsg: string) {
   if (currentMsg.charAt(0) == "H") {
     updateChord(currentMsg);
   } else {
