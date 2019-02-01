@@ -57,7 +57,8 @@ function processMessage(msg: string) {
   }
 }
 
-// Checks what chord is being set by the Harmony Glove
+// updates current chord based on what chord has just 
+// been sent by the Harmony Glove
 function updateChord(msg: string) {
   if (msg.length < 2) {
     return;
@@ -112,6 +113,7 @@ const myColours: number[] = [
 // Frequency and Test array setups
 const noteFreqs: number[] = [220, 247, 131, 147, 165, 175, 196];
 const noteLengths: number[] = [100, 200, 300, 400];
+currentNoteLength = noteLengths[0];
 
 testMessages = ["HC", "HG", "HF"];
 testBeatMsgs = ["R1", "R2", "R3", "R4"];
@@ -124,8 +126,6 @@ CMaj = [2, 4, 6];
 G7Maj = [6, 1, 3, 5];
 FMaj = [5, 7, 2];
 activeChord = CMaj;
-
-currentNoteLength = noteLengths[0];
 
 function setUpRadioGroup() {
   // Radio Setup
