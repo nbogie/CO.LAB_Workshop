@@ -45,7 +45,7 @@ radio.onReceivedString(function(receivedString) {
 // Processes the Message and Plays a note
 function processMessage() {
   if (currentMsg.charAt(0) == "H") {
-    updateChord();
+    updateChord(currentMsg);
   } else {
     if (prevMsg !== currentMsg) {
       currentNoteLength = noteLengths[parseInt(currentMsg.charAt(1)) - 1];
@@ -69,16 +69,16 @@ function processMessage() {
 }
 
 // Checks what chord is being set by the Harmony Glove
-function updateChord() {
-  if (currentMsg.charAt(1) == "C") {
+function updateChord(msg: string) {
+  if (msg.charAt(1) == "C") {
     activeChord = CMaj;
     basic.clearScreen();
     led.plot(4, 0);
-  } else if (currentMsg.charAt(1) == "G") {
+  } else if (msg.charAt(1) == "G") {
     activeChord = G7Maj;
     basic.clearScreen();
     led.plot(4, 1);
-  } else if (currentMsg.charAt(1) == "F") {
+  } else if (msg.charAt(1) == "F") {
     activeChord = FMaj;
     basic.clearScreen();
     led.plot(4, 2);
