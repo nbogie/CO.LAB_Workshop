@@ -53,7 +53,6 @@ function processMessage(msg: string) {
           //no pro-mode designed for rhythm receiver
         } else {
             currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
-            playNoteFromNoteNumberAndChord(2, activeChord);
         }
       }
     }
