@@ -28,8 +28,8 @@ input.onButtonPressed(Button.AB, function() {
   processMessage(testMsg);
 });
 
-function pickFromArray<T>(arr:T[]) : T{
-    return arr[Math.randomRange(0, arr.length - 1)];
+function pickFromArray<T>(arr: T[]): T {
+  return arr[Math.randomRange(0, arr.length - 1)];
 }
 
 // When Recieve Radio Message
@@ -61,7 +61,7 @@ function processMessage(msg: string) {
   }
 }
 
-// updates current chord based on what chord has just 
+// updates current chord based on what chord has just
 // been sent by the Harmony Glove
 function updateChord(msg: string) {
   if (msg.length < 2) {
