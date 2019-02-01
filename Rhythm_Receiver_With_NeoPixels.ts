@@ -2,7 +2,7 @@ let activeChord: number[] = [];
 let CMaj: number[] = [];
 let FMaj: number[] = [];
 let G7Maj: number[] = [];
-let lastMsg = "";
+let prevMsg = "";
 let msg = "";
 let myColours: number[] = [];
 let noteFreqs: number[] = [];
@@ -47,7 +47,7 @@ function processMessage() {
   if (msg.charAt(0) == "H") {
     updateChord();
   } else {
-    if (lastMsg !== msg) {
+    if (prevMsg !== msg) {
       currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
       if (msg == "R.") {
         music.rest(5);
@@ -64,7 +64,7 @@ function processMessage() {
         }
       }
     }
-    lastMsg = msg;
+    prevMsg = msg;
   }
 }
 
