@@ -1,7 +1,4 @@
 let activeChord: number[] = [];
-let CMaj: number[] = [];
-let FMaj: number[] = [];
-let G7Maj: number[] = [];
 let prevMsg = "";
 let currentNoteLength: number = 0;
 let strip: neopixel.Strip = null;
@@ -126,9 +123,10 @@ strip.setBrightness(255);
 strip.showColor(neopixel.colors(NeoPixelColors.Red));
 
 // setting up chord arrays
-CMaj = [2, 4, 6];
-G7Maj = [6, 1, 3, 5];
-FMaj = [5, 7, 2];
+const CMaj: number[] = [2, 4, 6];
+const FMaj: number[] = [5, 7, 2];
+const G7Maj: number[] = [6, 1, 3, 5];
+
 activeChord = CMaj;
 
 function setUpRadioGroup() {
