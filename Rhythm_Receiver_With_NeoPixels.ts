@@ -3,7 +3,7 @@ let prevMsg = "";
 let currentNoteLength: number = 0;
 let strip: neopixel.Strip = null;
 let testBeatMsgs: string[] = [];
-let testMessages: string[] = [];
+let testChordMessages: string[] = [];
 
 input.onButtonPressed(Button.A, function() {
   processMessage("R1");
@@ -15,7 +15,7 @@ input.onButtonPressed(Button.B, function() {
 });
 
 input.onButtonPressed(Button.AB, function() {
-  let testMsg = pickFromArray(testMessages);
+  let testMsg = pickFromArray(testChordMessages);
   processMessage(testMsg);
 });
 
