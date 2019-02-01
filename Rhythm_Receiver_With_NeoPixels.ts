@@ -28,8 +28,8 @@ input.onButtonPressed(Button.AB, function() {
   processMessage(testMsg);
 });
 
-function pickFromArray(arr){
-    return testMessages[Math.randomRange(0, arr.length - 1)];
+function pickFromArray<T>(arr:T[]) : T{
+    return arr[Math.randomRange(0, arr.length - 1)];
 }
 
 // When Recieve Radio Message
