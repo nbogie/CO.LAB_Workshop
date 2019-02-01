@@ -117,7 +117,7 @@ const noteFreqs: number[] = [220, 247, 131, 147, 165, 175, 196];
 const noteLengths: number[] = [100, 200, 300, 400];
 currentNoteLength = noteLengths[0];
 
-testMessages = ["HC", "HG", "HF"];
+testChordMessages = ["HC", "HG", "HF"];
 testBeatMsgs = ["R1", "R2", "R3", "R4"];
 strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB);
 strip.setBrightness(255);
