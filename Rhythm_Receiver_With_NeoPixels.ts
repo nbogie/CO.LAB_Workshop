@@ -45,7 +45,6 @@ function processMessage(msg: string) {
     updateChord(msg);
   } else {
     if (prevMsg !== msg) {
-      currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
       if (msg == "R.") {
         music.ringTone(0);
         neopixel.colors(NeoPixelColors.Black);
@@ -53,7 +52,8 @@ function processMessage(msg: string) {
         if (msg.charAt(1) == "P") {
           //no pro-mode designed for rhythm receiver
         } else {
-          playNoteFromNoteNumberAndChord(2, activeChord);
+            currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
+            playNoteFromNoteNumberAndChord(2, activeChord);
         }
       }
     }
