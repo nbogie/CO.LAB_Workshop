@@ -144,6 +144,6 @@ basic.showLeds(`
 // We must be careful to include a pause within our work
 // to let other tasks get processor time.
 while (true) {
-  playNoteFromNoteNumberAndChord(2, activeChord);
+  playNoteFromNoteNumberAndChord(0, activeChord);
   basic.pause(currentNoteLength);
 }
