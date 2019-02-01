@@ -3,7 +3,7 @@ let CMaj: number[] = [];
 let FMaj: number[] = [];
 let G7Maj: number[] = [];
 let prevMsg = "";
-let msg = "";
+let currentMsg = "";
 let myColours: number[] = [];
 let noteFreqs: number[] = [];
 let noteLengthPos = 0;
@@ -20,17 +20,17 @@ basic.forever(function() {
 });
 
 input.onButtonPressed(Button.A, function() {
-  msg = "R1";
+  currentMsg = "R1";
   processMessage();
 });
 
 input.onButtonPressed(Button.AB, function() {
-  msg = testBeatMsgs[Math.randomRange(0, 3)];
+  currentMsg = testBeatMsgs[Math.randomRange(0, 3)];
   processMessage();
 });
 
 input.onButtonPressed(Button.B, function() {
-  msg = testMessages[Math.randomRange(0, 2)];
+  currentMsg = testMessages[Math.randomRange(0, 2)];
   processMessage();
 });
 
@@ -38,23 +38,23 @@ input.onButtonPressed(Button.B, function() {
 radio.onReceivedString(function(receivedString) {
   // Tells you when it is recieving messages
   led.toggle(0, 0);
-  msg = receivedString;
+  currentMsg = receivedString;
   processMessage();
 });
 
 // Processes the Message and Plays a note
 function processMessage() {
-  if (msg.charAt(0) == "H") {
+  if (currentMsg.charAt(0) == "H") {
     updateChord();
   } else {
-    if (prevMsg !== msg) {
-      currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
-      if (msg == "R.") {
+    if (prevMsg !== currentMsg) {
+      currentNoteLength = noteLengths[parseInt(currentMsg.charAt(1)) - 1];
+      if (currentMsg == "R.") {
         music.rest(5);
         neopixel.colors(NeoPixelColors.Black);
-      } else if (msg.charAt(0) == "R") {
-        if (msg.charAt(1) == "P") {
-          proModeNote = msg.charAt(2);
+      } else if (currentMsg.charAt(0) == "R") {
+        if (currentMsg.charAt(1) == "P") {
+          proModeNote = currentMsg.charAt(2);
           let freq = getFrequencyForNoteName(proModeNote);
           let index = getIndexForNoteName(proModeNote);
           neoPixelsShowColour(index);
@@ -64,21 +64,21 @@ function processMessage() {
         }
       }
     }
-    prevMsg = msg;
+    prevMsg = currentMsg;
   }
 }
 
 // Checks what chord is being set by the Harmony Glove
 function updateChord() {
-  if (msg.charAt(1) == "C") {
+  if (currentMsg.charAt(1) == "C") {
     activeChord = CMaj;
     basic.clearScreen();
     led.plot(4, 0);
-  } else if (msg.charAt(1) == "G") {
+  } else if (currentMsg.charAt(1) == "G") {
     activeChord = G7Maj;
     basic.clearScreen();
     led.plot(4, 1);
-  } else if (msg.charAt(1) == "F") {
+  } else if (currentMsg.charAt(1) == "F") {
     activeChord = FMaj;
     basic.clearScreen();
     led.plot(4, 2);
