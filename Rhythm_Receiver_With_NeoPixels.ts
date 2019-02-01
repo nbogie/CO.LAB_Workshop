@@ -63,20 +63,18 @@ function updateChord(msg: string) {
     return;
   }
   let chordChar = msg.charAt(1);
+  basic.clearScreen();
   switch (chordChar) {
     case "C":
       activeChord = CMaj;
-      basic.clearScreen();
       led.plot(4, 0);
       break;
     case "G":
       activeChord = G7Maj;
-      basic.clearScreen();
       led.plot(4, 1);
       break;
     case "F":
       activeChord = FMaj;
-      basic.clearScreen();
       led.plot(4, 2);
       break;
     default:
