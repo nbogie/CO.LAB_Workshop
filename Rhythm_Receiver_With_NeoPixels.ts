@@ -80,10 +80,10 @@ function updateChord(msg: string) {
 // Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(noteNum: number, chordIxs: number[]) {
   let freqIx = chordIxs[noteNum];
+  let freq = noteFreqs[freqIx];
   strip.showColor(neopixel.colors(NeoPixelColors.Red));
-  music.ringTone(noteFreqs[freqIx]);
-  basic.pause(currentNoteLength);
-  music.ringTone(0);
+  serial.writeLine(`playing: freqIx: ${freqIx}: freq: ${freq}`);
+  music.playTone(freq, currentNoteLength);
   strip.showColor(neopixel.colors(NeoPixelColors.Black));
 }
 
@@ -144,6 +144,6 @@ basic.showLeds(`
 // We must be careful to include a pause within our work
 // to let other tasks get processor time.
 while (true) {
-  playNoteFromNoteNumberAndChord(0, activeChord);
-  basic.pause(currentNoteLength);
+  playNoteFromNoteNumberAndChord(2, activeChord);
+  music.rest(currentNoteLength);
 }
