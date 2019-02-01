@@ -88,10 +88,6 @@ function playNoteFromNoteNumberAndChord(noteNum: number, chordIxs: number[]) {
   strip.showColor(neopixel.colors(NeoPixelColors.Black));
 }
 
-function getIndexForNoteName(noteName: string) {
-  //TODO: protect against bad inputs
-  return noteName.charCodeAt(0) - 65;
-}
 
 function neoPixelsShowColour(index: number) {
   strip.showColor(neopixel.colors(myColours[index]));
