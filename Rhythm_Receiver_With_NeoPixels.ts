@@ -5,13 +5,6 @@ let strip: neopixel.Strip = null;
 let testBeatMsgs: string[] = [];
 let testMessages: string[] = [];
 
-basic.forever(function() {
-  //TODO: this forever has a 20ms pause built-in
-  // which messes with our real note durations.
-  playNoteFromNoteNumberAndChord(2, activeChord);
-  basic.pause(currentNoteLength);
-});
-
 input.onButtonPressed(Button.A, function() {
   processMessage("R1");
 });
@@ -151,3 +144,12 @@ basic.showLeds(`
     . . # . .
     . . # . .
     `);
+
+// We avoid using forever as it has a 20ms pause built-in
+// which messes with our real note durations.
+// We must be careful to include a pause within our work
+// to let other tasks get processor time.
+while (true) {
+  playNoteFromNoteNumberAndChord(2, activeChord);
+  basic.pause(currentNoteLength);
+}
