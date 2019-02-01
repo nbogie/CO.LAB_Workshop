@@ -91,6 +91,20 @@ function neoPixelsShowColour(index: number) {
   strip.showColor(neopixel.colors(myColours[index]));
 }
 
+function setUpRadioGroup() {
+  // Radio Setup
+  if (input.buttonIsPressed(Button.A)) {
+    radio.setGroup(42);
+    basic.showNumber(42);
+  } else if (input.buttonIsPressed(Button.B)) {
+    radio.setGroup(43);
+    basic.showNumber(43);
+  } else {
+    radio.setGroup(41);
+    basic.showNumber(41);
+  }
+}
+
 const myColours: number[] = [
   neopixel.colors(NeoPixelColors.Red),
   neopixel.colors(NeoPixelColors.Green),
@@ -115,20 +129,6 @@ const FMaj: number[] = [5, 7, 2];
 const G7Maj: number[] = [6, 1, 3, 5];
 
 activeChord = CMaj;
-
-function setUpRadioGroup() {
-  // Radio Setup
-  if (input.buttonIsPressed(Button.A)) {
-    radio.setGroup(42);
-    basic.showNumber(42);
-  } else if (input.buttonIsPressed(Button.B)) {
-    radio.setGroup(43);
-    basic.showNumber(43);
-  } else {
-    radio.setGroup(41);
-    basic.showNumber(41);
-  }
-}
 
 // Show there is power
 basic.showLeds(`
