@@ -40,18 +40,18 @@ radio.onReceivedString(function(receivedString) {
 });
 
 // Processes the Message and Plays a note
-function processMessage(currentMsg: string) {
-  if (currentMsg.charAt(0) == "H") {
-    updateChord(currentMsg);
+function processMessage(msg: string) {
+  if (msg.charAt(0) == "H") {
+    updateChord(msg);
   } else {
-    if (prevMsg !== currentMsg) {
-      currentNoteLength = noteLengths[parseInt(currentMsg.charAt(1)) - 1];
-      if (currentMsg == "R.") {
+    if (prevMsg !== msg) {
+      currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
+      if (msg == "R.") {
         music.rest(5);
         neopixel.colors(NeoPixelColors.Black);
-      } else if (currentMsg.charAt(0) == "R") {
-        if (currentMsg.charAt(1) == "P") {
-          proModeNote = currentMsg.charAt(2);
+      } else if (msg.charAt(0) == "R") {
+        if (msg.charAt(1) == "P") {
+          proModeNote = msg.charAt(2);
           let freq = getFrequencyForNoteName(proModeNote);
           let index = getIndexForNoteName(proModeNote);
           neoPixelsShowColour(index);
@@ -61,7 +61,7 @@ function processMessage(currentMsg: string) {
         }
       }
     }
-    prevMsg = currentMsg;
+    prevMsg = msg;
   }
 }
 
