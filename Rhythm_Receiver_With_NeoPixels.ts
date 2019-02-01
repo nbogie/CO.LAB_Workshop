@@ -3,7 +3,6 @@ let CMaj: number[] = [];
 let FMaj: number[] = [];
 let G7Maj: number[] = [];
 let prevMsg = "";
-let noteLengthPos = 0;
 let currentNoteLength: number = 0;
 let strip: neopixel.Strip = null;
 let testBeatMsgs: string[] = [];
