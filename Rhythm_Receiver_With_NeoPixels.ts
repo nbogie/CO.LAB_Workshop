@@ -18,12 +18,12 @@ input.onButtonPressed(Button.A, function() {
   processMessage("R1");
 });
 
-input.onButtonPressed(Button.AB, function() {
+input.onButtonPressed(Button.B, function() {
   let testMsg = testBeatMsgs[Math.randomRange(0, 3)];
   processMessage(testMsg);
 });
 
-input.onButtonPressed(Button.B, function() {
+input.onButtonPressed(Button.AB, function() {
   let testMsg = testMessages[Math.randomRange(0, 2)];
   processMessage(testMsg);
 });
