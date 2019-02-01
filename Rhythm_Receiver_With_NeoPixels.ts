@@ -23,9 +23,8 @@ function pickFromArray<T>(arr: T[]): T {
   return arr[Math.randomRange(0, arr.length - 1)];
 }
 
-// When Recieve Radio Message
 radio.onReceivedString(function(receivedString) {
-  // Tells you when it is recieving messages
+  //indicate we got a message
   led.toggle(0, 0);
   processMessage(receivedString);
 });
@@ -43,7 +42,7 @@ function processMessage(msg: string) {
         if (msg.charAt(1) == "P") {
           //no pro-mode designed for rhythm receiver
         } else {
-            currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
+          currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
         }
       }
     }
@@ -87,7 +86,6 @@ function playNoteFromNoteNumberAndChord(noteNum: number, chordIxs: number[]) {
   music.ringTone(0);
   strip.showColor(neopixel.colors(NeoPixelColors.Black));
 }
-
 
 function neoPixelsShowColour(index: number) {
   strip.showColor(neopixel.colors(myColours[index]));
