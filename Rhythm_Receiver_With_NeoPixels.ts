@@ -8,6 +8,7 @@ let myColours: number[] = [];
 let noteFreqs: number[] = [];
 let noteLengthPos = 0;
 let noteLengths: number[] = [];
+let currentNoteLength: number = 0;
 let proModeNote = "";
 let strip: neopixel.Strip = null;
 let testBeatMsgs: string[] = [];
@@ -15,7 +16,7 @@ let testMessages: string[] = [];
 
 basic.forever(function() {
   playNoteFromNoteNumberAndChord(2, activeChord);
-  basic.pause(noteLengths[noteLengthPos - 1]);
+  basic.pause(currentNoteLength);
 });
 
 input.onButtonPressed(Button.A, function() {
@@ -46,8 +47,8 @@ function processMessage() {
   if (msg.charAt(0) == "H") {
     updateChord();
   } else {
-    if (lastMsg !== msg) {
-      noteLengthPos = parseInt(msg.charAt(1));
+    if (lastMsg !== msg) {      
+      currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
       if (msg == "R.") {
         music.rest(5);
         neopixel.colors(NeoPixelColors.Black);
@@ -87,10 +88,10 @@ function updateChord() {
 // Playing note from Message sent and chord set
 function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
   let freqIx = chordIxs[NoteNum];
-  music.ringTone(noteFreqs[freqIx]);
   strip.showColor(neopixel.colors(NeoPixelColors.Red));
-  basic.pause(noteLengths[noteLengthPos - 1]);
-  music.rest(50);
+  music.ringTone(noteFreqs[freqIx]);
+  basic.pause(currentNoteLength);
+  music.ringTone(0);
   strip.showColor(neopixel.colors(NeoPixelColors.Black));
 }
 
@@ -125,8 +126,11 @@ strip.showColor(neopixel.colors(NeoPixelColors.Red));
 CMaj = [2, 4, 6];
 G7Maj = [6, 1, 3, 5];
 FMaj = [5, 7, 2];
-noteLengths = [100, 200, 300, 400];
 activeChord = CMaj;
+
+//setting up note lengths
+noteLengths = [100, 200, 300, 400];
+currentNoteLength = noteLengths[0];
 
 // Frequency and Test array setups
 noteFreqs = [220, 247, 131, 147, 165, 175, 196];
