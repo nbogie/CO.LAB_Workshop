@@ -8,7 +8,6 @@ let noteFreqs: number[] = [];
 let noteLengthPos = 0;
 let noteLengths: number[] = [];
 let currentNoteLength: number = 0;
-let proModeNote = "";
 let strip: neopixel.Strip = null;
 let testBeatMsgs: string[] = [];
 let testMessages: string[] = [];
@@ -47,15 +46,11 @@ function processMessage(msg: string) {
     if (prevMsg !== msg) {
       currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
       if (msg == "R.") {
-        music.rest(5);
+        music.ringTone(0);
         neopixel.colors(NeoPixelColors.Black);
       } else if (msg.charAt(0) == "R") {
         if (msg.charAt(1) == "P") {
-          proModeNote = msg.charAt(2);
-          let freq = getFrequencyForNoteName(proModeNote);
-          let index = getIndexForNoteName(proModeNote);
-          neoPixelsShowColour(index);
-          music.ringTone(freq);
+            //no pro-mode designed for rhythm receiver
         } else {
           playNoteFromNoteNumberAndChord(2, activeChord);
         }
@@ -95,11 +90,6 @@ function playNoteFromNoteNumberAndChord(noteNum: number, chordIxs: number[]) {
 function getIndexForNoteName(noteName: string) {
   //TODO: protect against bad inputs
   return noteName.charCodeAt(0) - 65;
-}
-
-// Pro Mode - Plays note from the Note Name
-function getFrequencyForNoteName(noteName: string) {
-  return noteFreqs[getIndexForNoteName(noteName)];
 }
 
 function neoPixelsShowColour(index: number) {
