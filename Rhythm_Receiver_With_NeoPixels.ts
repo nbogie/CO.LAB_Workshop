@@ -10,6 +10,8 @@ let testBeatMsgs: string[] = [];
 let testMessages: string[] = [];
 
 basic.forever(function() {
+  //TODO: this forever has a 20ms pause built-in
+  // which messes with our real note durations.
   playNoteFromNoteNumberAndChord(2, activeChord);
   basic.pause(currentNoteLength);
 });
