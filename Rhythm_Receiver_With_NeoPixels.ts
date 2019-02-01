@@ -59,18 +59,29 @@ function processMessage(msg: string) {
 
 // Checks what chord is being set by the Harmony Glove
 function updateChord(msg: string) {
-  if (msg.charAt(1) == "C") {
-    activeChord = CMaj;
-    basic.clearScreen();
-    led.plot(4, 0);
-  } else if (msg.charAt(1) == "G") {
-    activeChord = G7Maj;
-    basic.clearScreen();
-    led.plot(4, 1);
-  } else if (msg.charAt(1) == "F") {
-    activeChord = FMaj;
-    basic.clearScreen();
-    led.plot(4, 2);
+  if (msg.length < 2) {
+    return;
+  }
+  let chordChar = msg.charAt(1);
+  switch (chordChar) {
+    case "C":
+      activeChord = CMaj;
+      basic.clearScreen();
+      led.plot(4, 0);
+      break;
+    case "G":
+      activeChord = G7Maj;
+      basic.clearScreen();
+      led.plot(4, 1);
+      break;
+    case "F":
+      activeChord = FMaj;
+      basic.clearScreen();
+      led.plot(4, 2);
+      break;
+    default:
+      //do nothing - unrecognised chord char
+      break;
   }
 }
 
