@@ -19,14 +19,18 @@ input.onButtonPressed(Button.A, function() {
 });
 
 input.onButtonPressed(Button.B, function() {
-  let testMsg = testBeatMsgs[Math.randomRange(0, 3)];
+  let testMsg = pickFromArray(testBeatMsgs);
   processMessage(testMsg);
 });
 
 input.onButtonPressed(Button.AB, function() {
-  let testMsg = testMessages[Math.randomRange(0, 2)];
+  let testMsg = pickFromArray(testMessages);
   processMessage(testMsg);
 });
+
+function pickFromArray(arr){
+    return testMessages[Math.randomRange(0, arr.length - 1)];
+}
 
 // When Recieve Radio Message
 radio.onReceivedString(function(receivedString) {
