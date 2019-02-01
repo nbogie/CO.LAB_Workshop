@@ -1,4 +1,4 @@
-let activeChord: number[] = [];
+let activeChord: string[] = [];
 let prevMsg = "";
 let currentNoteLength: number = 0;
 let strip: neopixel.Strip = null;
@@ -50,6 +50,28 @@ function processMessage(msg: string) {
   }
 }
 
+function freqForNote(noteName: string): number {
+  //TODO: can we do this with a simple js object with the letters as the keys?
+  switch (noteName) {
+    case "C":
+      return 131;
+    case "D":
+      return 147;
+    case "E":
+      return 165;
+    case "F":
+      return 175;
+    case "G":
+      return 196;
+    case "A":
+      return 220;
+    case "B":
+      return 247;
+    default:
+      return 0;
+  }
+}
+
 // updates current chord based on what chord has just
 // been sent by the Harmony Glove
 function updateChord(msg: string) {
@@ -78,11 +100,11 @@ function updateChord(msg: string) {
 }
 
 // Playing note from Message sent and chord set
-function playNoteFromNoteNumberAndChord(noteNum: number, chordIxs: number[]) {
-  let freqIx = chordIxs[noteNum];
-  let freq = noteFreqs[freqIx];
+// note num will be 1, 3, 5, or 7
+function playNoteFromNoteNumberAndChord(noteNum: number, chordNotes: string[]) {
+  let noteName: string = chordNotes[noteNum];
+  let freq: number = freqForNote(noteName);
   strip.showColor(neopixel.colors(NeoPixelColors.Red));
-  serial.writeLine(`playing: freqIx: ${freqIx}: freq: ${freq}`);
   music.playTone(freq, currentNoteLength);
   strip.showColor(neopixel.colors(NeoPixelColors.Black));
 }
@@ -112,8 +134,6 @@ const myColours: number[] = [
   neopixel.colors(NeoPixelColors.Yellow),
   neopixel.colors(NeoPixelColors.Purple)
 ];
-// Frequency and Test array setups
-const noteFreqs: number[] = [220, 247, 131, 147, 165, 175, 196];
 const noteLengths: number[] = [100, 200, 300, 400];
 currentNoteLength = noteLengths[0];
 
@@ -123,10 +143,9 @@ strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB);
 strip.setBrightness(255);
 strip.showColor(neopixel.colors(NeoPixelColors.Red));
 
-// setting up chord arrays
-const CMaj: number[] = [2, 4, 6];
-const FMaj: number[] = [5, 7, 2];
-const G7Maj: number[] = [6, 1, 3, 5];
+const CMaj: string[] = ["C", "E", "G"];
+const FMaj: string[] = ["F", "A", "C"];
+const G7Maj: string[] = ["G", "B", "D", "F"];
 
 activeChord = CMaj;
 
@@ -144,6 +163,6 @@ basic.showLeds(`
 // We must be careful to include a pause within our work
 // to let other tasks get processor time.
 while (true) {
-  playNoteFromNoteNumberAndChord(2, activeChord);
+  playNoteFromNoteNumberAndChord(0, activeChord);
   music.rest(currentNoteLength);
 }
