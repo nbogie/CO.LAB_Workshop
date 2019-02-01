@@ -47,7 +47,7 @@ function processMessage() {
   if (msg.charAt(0) == "H") {
     updateChord();
   } else {
-    if (lastMsg !== msg) {      
+    if (lastMsg !== msg) {
       currentNoteLength = noteLengths[parseInt(msg.charAt(1)) - 1];
       if (msg == "R.") {
         music.rest(5);
@@ -86,8 +86,8 @@ function updateChord() {
 }
 
 // Playing note from Message sent and chord set
-function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
-  let freqIx = chordIxs[NoteNum];
+function playNoteFromNoteNumberAndChord(noteNum: number, chordIxs: number[]) {
+  let freqIx = chordIxs[noteNum];
   strip.showColor(neopixel.colors(NeoPixelColors.Red));
   music.ringTone(noteFreqs[freqIx]);
   basic.pause(currentNoteLength);
@@ -95,13 +95,13 @@ function playNoteFromNoteNumberAndChord(NoteNum: number, chordIxs: number[]) {
   strip.showColor(neopixel.colors(NeoPixelColors.Black));
 }
 
-function getIndexForNoteName(noteName: string){
-    //TODO: protect against bad inputs
-    return noteName.charCodeAt(0) - 65;
+function getIndexForNoteName(noteName: string) {
+  //TODO: protect against bad inputs
+  return noteName.charCodeAt(0) - 65;
 }
 
 // Pro Mode - Plays note from the Note Name
-function getFrequencyForNoteName(noteName: string) {  
+function getFrequencyForNoteName(noteName: string) {
   return noteFreqs[getIndexForNoteName(noteName)];
 }
 
@@ -149,7 +149,7 @@ function setUpRadioGroup() {
   }
 }
 
-// Check to see if there is power
+// Show there is power
 basic.showLeds(`
     # # . . .
     # . . . .
