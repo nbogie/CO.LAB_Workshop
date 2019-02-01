@@ -3,10 +3,7 @@ let CMaj: number[] = [];
 let FMaj: number[] = [];
 let G7Maj: number[] = [];
 let prevMsg = "";
-let myColours: number[] = [];
-let noteFreqs: number[] = [];
 let noteLengthPos = 0;
-let noteLengths: number[] = [];
 let currentNoteLength: number = 0;
 let strip: neopixel.Strip = null;
 let testBeatMsgs: string[] = [];
@@ -50,7 +47,7 @@ function processMessage(msg: string) {
         neopixel.colors(NeoPixelColors.Black);
       } else if (msg.charAt(0) == "R") {
         if (msg.charAt(1) == "P") {
-            //no pro-mode designed for rhythm receiver
+          //no pro-mode designed for rhythm receiver
         } else {
           playNoteFromNoteNumberAndChord(2, activeChord);
         }
@@ -96,16 +93,20 @@ function neoPixelsShowColour(index: number) {
   strip.showColor(neopixel.colors(myColours[index]));
 }
 
-testMessages = ["HC", "HG", "HF"];
-testBeatMsgs = ["R1", "R2", "R3", "R4"];
-strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB);
-myColours = [
+const myColours: number[] = [
   neopixel.colors(NeoPixelColors.Red),
   neopixel.colors(NeoPixelColors.Green),
   neopixel.rgb(155, 155, 255),
   neopixel.colors(NeoPixelColors.Yellow),
   neopixel.colors(NeoPixelColors.Purple)
 ];
+// Frequency and Test array setups
+const noteFreqs: number[] = [220, 247, 131, 147, 165, 175, 196];
+const noteLengths: number[] = [100, 200, 300, 400];
+
+testMessages = ["HC", "HG", "HF"];
+testBeatMsgs = ["R1", "R2", "R3", "R4"];
+strip = neopixel.create(DigitalPin.P1, 5, NeoPixelMode.RGB);
 strip.setBrightness(255);
 strip.showColor(neopixel.colors(NeoPixelColors.Red));
 
@@ -115,12 +116,7 @@ G7Maj = [6, 1, 3, 5];
 FMaj = [5, 7, 2];
 activeChord = CMaj;
 
-//setting up note lengths
-noteLengths = [100, 200, 300, 400];
 currentNoteLength = noteLengths[0];
-
-// Frequency and Test array setups
-noteFreqs = [220, 247, 131, 147, 165, 175, 196];
 
 function setUpRadioGroup() {
   // Radio Setup
